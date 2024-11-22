@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AboutPage from './pages/AboutPage'; 
 import Home from './pages/Home';
 import Menu from './pages/Menu';
 import Cart from './pages/Cart';
@@ -17,6 +18,7 @@ export default function App() {
             <main className="pt-20 pb-12">
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/about" element={<AboutPage />} /> 
                 <Route path="/menu" element={<Menu />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/checkout" element={<Checkout />} />
