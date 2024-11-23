@@ -1,3 +1,5 @@
+import { MenuItem } from '../types';
+
 export const menuData: MenuItem[] = [
   {
     id: 1,
