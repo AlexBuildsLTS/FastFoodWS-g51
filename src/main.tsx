@@ -1,13 +1,17 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import App from './App';
+import { CartProvider } from './context/CartContext';
+import { ThemeProvider } from './context/ThemeContext';
 import './index.css';
 
-const rootElement = document.getElementById('root');
-if (!rootElement) throw new Error('Failed to find the root element');
-
-createRoot(rootElement).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
+ReactDOM.render(
+  <React.StrictMode>
+    <ThemeProvider>
+      <CartProvider>
+        <App />
+      </CartProvider>
+    </ThemeProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
 );

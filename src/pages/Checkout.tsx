@@ -10,7 +10,7 @@ export default function Checkout() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setOrderPlaced(true);
-    clearCart(); // Clear the cart after order is placed
+    clearCart();
   };
 
   if (orderPlaced) {

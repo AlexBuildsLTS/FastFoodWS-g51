@@ -1,60 +1,64 @@
-import { ShoppingCart, Menu as MenuIcon } from 'lucide-react';
-import { useState } from 'react';
-import { useCart } from '../context/CartContext';
-import ThemeToggle from './ThemeToggle';
+import { Sun, Moon } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-export default function Navbar() {
-  const { itemCount } = useCart();
-  const [isOpen, setIsOpen] = useState(false);
+interface NavbarProps {
+  toggleTheme: () => void;
+  isDark: boolean;
+}
 
+export default function Navbar({ toggleTheme, isDark }: NavbarProps) {
   return (
-    <nav className="bg-white dark:bg-navy-800 shadow-lg fixed w-full top-0 z-50 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <span className="text-xl font-bold text-gray-800 dark:text-white">FastFoodApp</span>
-          </div>
+    <nav className="p-4 bg-black shadow-lg">
+      <div className="container flex items-center justify-between mx-auto">
+        {/* Left Side: Home, Menu, About Us */}
+        <div className="flex items-center space-x-2">
+          <Link
+            to="/"
+            className="text-sm font-semibold text-white bg-green-800 hover:bg-green-700 px-3 py-1.5 rounded-md"
+          >
+            Home
+          </Link>
+          <Link
+            to="/menu"
+            className="text-sm font-semibold text-white bg-green-800 hover:bg-green-700 px-3 py-1.5 rounded-md"
+          >
+            Menu
+          </Link>
+          <Link
+            to="/about"
+            className="text-sm font-semibold text-white bg-green-800 hover:bg-green-700 px-3 py-1.5 rounded-md"
+          >
+            About Us
+          </Link>
+        </div>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#menu" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Menu</a>
-            <a href="#about" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About</a>
-            <ThemeToggle />
-            <div className="relative">
-              <a href="#cart" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                <ShoppingCart className="w-6 h-6" />
-                {itemCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {itemCount}
-                  </span>
-                )}
-              </a>
-            </div>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-4">
-            <ThemeToggle />
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none"
-            >
-              <MenuIcon className="w-6 h-6" />
-            </button>
-          </div>
+        {/* Right Side: Cart, Checkout, Theme Toggle */}
+        <div className="flex items-center space-x-2">
+          <Link
+            to="/cart"
+            className="text-sm font-semibold text-white bg-green-800 hover:bg-green-700 px-3 py-1.5 rounded-md"
+          >
+            Cart
+          </Link>
+          <Link
+            to="/checkout"
+            className="text-sm font-semibold text-white bg-green-800 hover:bg-green-700 px-3 py-1.5 rounded-md"
+          >
+            Checkout
+          </Link>
+          <button
+            onClick={toggleTheme}
+            className="p-2 transition-colors rounded-full hover:bg-gray-700"
+            aria-label="Toggle Theme"
+          >
+            {isDark ? (
+              <Sun className="w-6 h-6 text-white" />
+            ) : (
+              <Moon className="w-6 h-6 text-white" />
+            )}
+          </button>
         </div>
       </div>
-
-      {/* Mobile menu */}
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 dark:bg-navy-800">
-            <a href="#menu" className="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Menu</a>
-            <a href="#about" className="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About</a>
-            <a href="#cart" className="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Cart ({itemCount})</a>
-          </div>
-        </div>
-      )}
     </nav>
   );
 }
