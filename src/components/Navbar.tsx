@@ -10,7 +10,7 @@ export default function Navbar({ toggleTheme, isDark }: NavbarProps) {
   return (
     <nav className="p-4 bg-black shadow-lg">
       <div className="container flex items-center justify-between mx-auto">
-        {/* Left Side: Home, Menu, About Us */}
+        {/* Left Side: Home, Menu */}
         <div className="flex items-center space-x-2">
           <Link
             to="/"
@@ -24,9 +24,10 @@ export default function Navbar({ toggleTheme, isDark }: NavbarProps) {
           >
             Menu
           </Link>
+          {/* Hide on small screens */}
           <Link
             to="/about"
-            className="text-sm font-semibold text-white bg-green-800 hover:bg-green-700 px-3 py-1.5 rounded-md"
+            className="hidden sm:inline-block text-sm font-semibold text-white bg-green-800 hover:bg-green-700 px-3 py-1.5 rounded-md"
           >
             About Us
           </Link>
