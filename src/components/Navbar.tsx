@@ -1,5 +1,6 @@
 import { Sun, Moon } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 interface NavbarProps {
   toggleTheme: () => void;
@@ -7,6 +8,8 @@ interface NavbarProps {
 }
 
 export default function Navbar({ toggleTheme, isDark }: NavbarProps) {
+  const { itemCount } = useCart();
+
   return (
     <nav className="p-4 bg-black shadow-lg">
       <div className="container flex items-center justify-between mx-auto">
@@ -37,9 +40,14 @@ export default function Navbar({ toggleTheme, isDark }: NavbarProps) {
         <div className="flex items-center space-x-2">
           <Link
             to="/cart"
-            className="text-sm font-semibold text-white bg-green-800 hover:bg-green-700 px-3 py-1.5 rounded-md"
+            className="relative text-sm font-semibold text-white bg-green-800 hover:bg-green-700 px-3 py-1.5 rounded-md"
           >
             Cart
+            {itemCount > 0 && (
+              <span className="absolute flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-600 rounded-full -top-1 -right-2">
+                {itemCount}
+              </span>
+            )}
           </Link>
           <Link
             to="/checkout"

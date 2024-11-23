@@ -1,6 +1,7 @@
-import { Plus } from 'lucide-react';
+import { Plus, CheckCircle } from 'lucide-react';
 import { MenuItem as MenuItemType } from '../types';
 import { useCart } from '../context/CartContext';
+import { useState } from 'react';
 
 interface Props {
   item: MenuItemType;
@@ -8,6 +9,7 @@ interface Props {
 
 export default function MenuItem({ item }: Props) {
   const { addItem } = useCart();
+  const [showNotification, setShowNotification] = useState(false);
 
   const handleAddToCart = () => {
     addItem({
@@ -17,10 +19,20 @@ export default function MenuItem({ item }: Props) {
       quantity: 1,
       image: item.image,
     });
+    setShowNotification(true);
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 2000); // Notification disappears after 2 seconds
   };
 
   return (
-    <div className="bg-white dark:bg-navy-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] w-64">
+    <div className="bg-white dark:bg-navy-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] w-64 relative">
+      {showNotification && (
+        <div className="absolute top-0 left-0 flex items-center justify-center w-full gap-1 py-1 text-sm text-white bg-green-500">
+          <CheckCircle className="w-5 h-5" />
+          Added to cart
+        </div>
+      )}
       <img
         src={item.image}
         alt={item.name}
